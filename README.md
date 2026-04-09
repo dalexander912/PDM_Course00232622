@@ -7,4 +7,6 @@ Daniel Alexander Armas Domínguez - 00232622 - Sección 02
 Repositorio de clases
 -
 
-1. 23-03: Conceptos básicos de Compose
+23-03 - Conceptos básicos de Compose
+
+25-03 - Estados en Compose: Lemonade App
