@@ -2,6 +2,7 @@ package com.pdm0126.ejercicios2204.data.repositories.MovieRepository
 
 import com.pdm0126.ejercicios2204.data.api.KtorClient
 import com.pdm0126.ejercicios2204.data.api.dto.GetMoviesResponseDTO
+import com.pdm0126.ejercicios2204.data.api.dto.GetUpcomingMoviesDTO
 import com.pdm0126.ejercicios2204.data.api.dto.MovieDTO
 import com.pdm0126.ejercicios2204.data.api.dto.toModel
 import com.pdm0126.ejercicios2204.models.Movie
@@ -25,5 +26,14 @@ class MovieApiRepository : MovieRepository {
     }.body()
 
     return response.toModel()
+  }
+
+  override suspend fun getUpcomingMovies(): List<Movie> {
+    val response: GetUpcomingMoviesDTO = KtorClient.client.get("movie/upcoming") {
+      parameter("language", "es-ES")
+      parameter("page", 1)
+    }.body()
+
+    return response.results.map { MovieDTO -> MovieDTO.toModel() }
   }
 }

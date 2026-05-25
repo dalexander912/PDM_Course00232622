@@ -14,4 +14,8 @@ class MovieDummyRepository: MovieRepository {
     delay(2000)
     return dummyMovies.find { it.id == id }
   }
+
+  override suspend fun getUpcomingMovies(): List<Movie> {
+    return dummyMovies
+  }
 }

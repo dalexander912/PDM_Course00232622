@@ -14,6 +14,8 @@ class MovieListViewModel: ViewModel() {
 
   private val _movies = MutableStateFlow<List<Movie>>(emptyList())
   val movies = _movies.asStateFlow()
+  private val _upcomingMovies = MutableStateFlow<List<Movie>>(emptyList())
+  val upcomingMovies = _upcomingMovies.asStateFlow()
 
   private val _loading = MutableStateFlow(false)
   val loading = _loading.asStateFlow()
@@ -26,6 +28,7 @@ class MovieListViewModel: ViewModel() {
     viewModelScope.launch {
       _loading.value = true
       _movies.value = movieRepository.getMovies()
+      _upcomingMovies.value = movieRepository.getUpcomingMovies()
       _loading.value = false
     }
   }
