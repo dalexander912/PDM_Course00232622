@@ -20,3 +20,5 @@ Repositorio de clases
 06-05 - Arquitectura MVVM
 
 18-05 - Consumo de API con Ktor
+
+27-05 (Repaso Parcial 2) - Manejo de errores y método POST
