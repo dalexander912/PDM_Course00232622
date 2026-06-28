@@ -1,24 +1,24 @@
-Programación de Dispositivos Móviles
-
-Ciclo 01-2026
+**Programación de Dispositivos Móviles**  
+**Ciclo 01-2026**
 
 Daniel Alexander Armas Domínguez - 00232622 - Sección 02
 
-Repositorio de clases
--
+## Repositorio de clases
 
-23-03 - Conceptos básicos de Compose
+23-03: Conceptos básicos de Compose
 
-25-03 - Estados en Compose: Lemonade App
+25-03: Estados en Compose - Lemonade App
 
-08-04 - Estado y Composición: Calculadora de propina
+08-04: Estado y Composición - Calculadora de propina
 
-13-04 - Scaffold
+13-04: Scaffold
 
-22-04 - Navigation3
+22-04: Navigation3 - MovieApp (dummy data)
 
-06-05 - Arquitectura MVVM
+06-05: Arquitectura MVVM - MovieApp
 
-18-05 - Consumo de API con Ktor
+18-05: Consumo de API con Ktor - MovieApp (TMDB)
 
-27-05 (Repaso Parcial 2) - Manejo de errores y método POST
+27-05 (Repaso Parcial 2): Manejo de errores y método POST - JSONPlaceholder
+
+24-06: Patrón offline-first (Room + Ktor) - MovieApp

@@ -1,0 +1,112 @@
+package com.pdm0126.ejercicios2204.ui.screens.MovieDetail
+
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
+import coil3.compose.AsyncImage
+import com.pdm0126.ejercicios2204.AppScaffold
+
+@Composable
+fun MovieDetailScreen(
+  movieId: Int,
+  navigateBack: () -> Unit,
+  viewModel: MovieDetailViewModel = viewModel(
+    key = movieId.toString(),
+    factory = MovieDetailViewModel.Factory(movieId)
+  )
+) {
+  val movie by viewModel.movie.collectAsStateWithLifecycle()
+
+  if (movie == null) {
+    AppScaffold(title = "Detail") { padding ->
+      CircularProgressIndicator(modifier = Modifier.padding(padding))
+    }
+    return
+  }
+
+  AppScaffold(
+    title = movie?.title ?: "Detail",
+    navigationIcon = {
+      IconButton(onClick = navigateBack) {
+        Icon(
+          imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+          contentDescription = "Back"
+        )
+      }
+    }
+  ) { padding ->
+    movie?.let {
+      Column(
+        modifier = Modifier
+          .fillMaxSize()
+          .padding(padding)
+          .verticalScroll(rememberScrollState())
+      ) {
+        AsyncImage(
+          model = it.backdropUrl,
+          contentDescription = it.title,
+          modifier = Modifier
+            .fillMaxWidth()
+            .height(220.dp),
+          contentScale = ContentScale.Crop
+        )
+        Column(modifier = Modifier.padding(16.dp)) {
+          Text(
+            text = it.title,
+            style = MaterialTheme.typography.headlineSmall,
+            fontWeight = FontWeight.Bold
+          )
+          Spacer(modifier = Modifier.height(4.dp))
+          Text(
+            text = it.originalTitle,
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+          )
+          Spacer(modifier = Modifier.height(8.dp))
+          Text(
+            text = "Rating: ${"%.2f".format(it.voteAverage)}  -  ${it.releaseDate}",
+            style = MaterialTheme.typography.bodyMedium
+          )
+          Spacer(modifier = Modifier.height(8.dp))
+          Text(
+            text = "Popularidad: ${"%.1f".format(it.popularity)}",
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+          )
+          Spacer(modifier = Modifier.height(16.dp))
+          Text(
+            text = "Sinopsis",
+            style = MaterialTheme.typography.titleMedium,
+            fontWeight = FontWeight.Bold
+          )
+          Spacer(modifier = Modifier.height(4.dp))
+          Text(
+            text = it.overview,
+            style = MaterialTheme.typography.bodyMedium
+          )
+        }
+      }
+    }
+  }
+}
